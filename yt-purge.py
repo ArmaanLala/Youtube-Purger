@@ -46,9 +46,9 @@ class PurgerBot:
             # name = item.find_element_by_id("endpoint")
             # print(name)
 
-    #Finished the massive unsubscribe function
-    def massUnsubscribe(self,x):
-        for i in range (x):
+    # Finished the massive unsubscribe function
+    def massUnsubscribe(self, x):
+        for i in range(x):
             subscriptions = self.driver.find_element_by_xpath(
                 "/html/body/ytd-app/div/app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[2]/div")
             sleep(3)
@@ -61,17 +61,16 @@ class PurgerBot:
                 "/html/body/ytd-app/ytd-popup-container/paper-dialog/yt-confirm-dialog-renderer/div[2]/div/yt-button-renderer[2]/a/paper-button").click()
             sleep(3)
             self.driver.execute_script("window.history.go(-1)")
-            sleep(5)
-        
+            
+
     def history(self):
-
-
-
-
-
+        sleep(5)
+        self.driver.find_element_by_xpath("/html/body/ytd-app/div/app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[1]/a/paper-item").click()
+        sleep(5)
+        self.driver.find_element_by_xpath("/html/body/ytd-app/div/ytd-page-manager/ytd-browse[2]/ytd-two-column-browse-results-renderer/div[2]/ytd-browse-feed-actions-renderer/div/ytd-button-renderer[1]/a/paper-button").click()
+        sleep(5)
+        self.driver.find_element_by_xpath("/html/body/ytd-app/ytd-popup-container/paper-dialog/yt-confirm-dialog-renderer/div[2]/div/yt-button-renderer[2]/a/paper-button").click()
 
 myBot = PurgerBot(email, password)
-# myBot.listSubscriptions()
-# myBot.massUnsubscribe(100)
-
-# myBot.driver.close()
+myBot.history()
+myBot.driver.close()
