@@ -31,7 +31,7 @@ class PurgerBot:
             "/html/body/div[1]/div[3]/div/div/div/div/div/div[1]/div[2]/div/form/div[2]/button/span").click()
         sleep(5)
 
-    #Prints all your subscriptions in a txt file
+    # Prints all your subscriptions in a txt file
     def listSubscriptions(self):
         subs = open("subscription.txt", "w")
         self.driver.find_element_by_xpath(
@@ -46,9 +46,32 @@ class PurgerBot:
             # name = item.find_element_by_id("endpoint")
             # print(name)
 
-    
+    #Finished the massive unsubscribe function
+    def massUnsubscribe(self,x):
+        for i in range (x):
+            subscriptions = self.driver.find_element_by_xpath(
+                "/html/body/ytd-app/div/app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[2]/div")
+            sleep(3)
+            subscriptions.find_element_by_id("endpoint").click()
+            sleep(3)
+            self.driver.find_element_by_xpath(
+                "/html/body/ytd-app/div/ytd-page-manager/ytd-browse[2]/div[3]/ytd-c4-tabbed-header-renderer/app-header-layout/div/app-header/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/ytd-subscribe-button-renderer/paper-button").click()
+            sleep(3)
+            self.driver.find_element_by_xpath(
+                "/html/body/ytd-app/ytd-popup-container/paper-dialog/yt-confirm-dialog-renderer/div[2]/div/yt-button-renderer[2]/a/paper-button").click()
+            sleep(3)
+            self.driver.execute_script("window.history.go(-1)")
+            sleep(5)
+        
+    def history(self):
 
 
-# myBot = PurgerBot(email,password)
+
+
+
+
+myBot = PurgerBot(email, password)
 # myBot.listSubscriptions()
-# myBot.listSubscriptions()
+# myBot.massUnsubscribe(100)
+
+# myBot.driver.close()
