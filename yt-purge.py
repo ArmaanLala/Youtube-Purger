@@ -24,12 +24,15 @@ class PurgerBot:
             "/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/span/span").click()
 
         # The line below is for two-factor authentication and you will need to do this part on your own
-        sleep(5)
+        sleep(20)
 
         # If you only have one youtube account tied to this email, comment the next line out
         self.driver.find_element_by_xpath(
             "/html/body/div[1]/div[3]/div/div/div/div/div/div[1]/div[2]/div/form/div[2]/button/span").click()
         sleep(5)
+
+
+
 
     # Prints all your subscriptions in a txt file
     def listSubscriptions(self):
@@ -39,12 +42,9 @@ class PurgerBot:
         subscriptions = self.driver.find_element_by_xpath(
             "/html/body/ytd-app/div/app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[2]/div")
         channels = subscriptions.find_elements_by_id("endpoint")
-        # print(looper)
         for item in channels:
             name = item.get_attribute("title")
             subs.write(name + "\n")
-            # name = item.find_element_by_id("endpoint")
-            # print(name)
 
     # Finished the massive unsubscribe function
     def massUnsubscribe(self, x):
@@ -61,8 +61,10 @@ class PurgerBot:
                 "/html/body/ytd-app/ytd-popup-container/paper-dialog/yt-confirm-dialog-renderer/div[2]/div/yt-button-renderer[2]/a/paper-button").click()
             sleep(3)
             self.driver.execute_script("window.history.go(-1)")
+            sleep(10)
+            self.driver.refresh()
             
-
+    #clears the users search history
     def history(self):
         sleep(5)
         self.driver.find_element_by_xpath("/html/body/ytd-app/div/app-drawer/div[2]/div/div[2]/div[2]/ytd-guide-renderer/div[1]/ytd-guide-section-renderer[1]/div/ytd-guide-collapsible-section-entry-renderer/div[2]/ytd-guide-entry-renderer[1]/a/paper-item").click()
@@ -71,6 +73,11 @@ class PurgerBot:
         sleep(5)
         self.driver.find_element_by_xpath("/html/body/ytd-app/ytd-popup-container/paper-dialog/yt-confirm-dialog-renderer/div[2]/div/yt-button-renderer[2]/a/paper-button").click()
 
+
+
 myBot = PurgerBot(email, password)
+myBot.listSubscriptions()
+#Input the number of channels you are subscribed to
+myBot.massUnsubscribe()
 myBot.history()
 myBot.driver.close()
